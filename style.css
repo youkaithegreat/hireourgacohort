@@ -11,3 +11,14 @@
     width: 20%;
     border:1em solid black;
 }
+
+.profiles i {
+    font-size: 3em;
+    color: black;
+}
+
+#profilesPic {
+    display:flex;
+    width: 200px;
+}
+
