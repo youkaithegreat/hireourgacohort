@@ -1,0 +1,13 @@
+.container {
+    display: flexbox;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.profiles {
+    display: flex;
+    display: row;
+    width: 20%;
+    border:1em solid black;
+}
