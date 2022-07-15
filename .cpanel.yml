@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home4/hireourg/public_html/
+    - /bin/cp -R * $DEPLOYPATH
+    
