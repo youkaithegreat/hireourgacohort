@@ -54,6 +54,8 @@ This project is meant to help students create something of their own to send to 
         --through these three steps, you have succesfully saved, confirmed and uploaded a file into the OG repo.
         --COOL STUFF
 
+        NOTE.2--> IF YOU ARE WORKING ON A FILE, BE SURE TO CREATE A PULL REQUEST ON GITHUB, AFTER YOU HAVE SUCCESFULLY GIT ADDED, COMMITED AND PUSHED. YOUR UPDATED FILE WILL NOT SHOW UP ON THE MAIN REPO UNLESS YOU CREATE A PULL REQUEST DIRECTLY ON GITHUB.
+
 
        sources: https://docs.github.com/en/get-started/quickstart/fork-a-repo
        https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork
