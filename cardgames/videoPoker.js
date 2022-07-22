@@ -117,10 +117,11 @@ $(() =>{
     }
 
     const removeCards = () => {
-        for(let i = 0; i<deck.length; i++){
-            const cardId = '#' + deck[i].raw
-            $(`${cardId}`).attr("src",'img/primary/2B.svg').fadeOut(3000)
-        }
+        // for(let i = 0; i<deck.length; i++){
+        //     const cardId = '#' + deck[i].raw
+        //     $(`${cardId}`).attr("src",'img/primary/2B.svg').fadeOut(3000)
+        // }
+        $(".cards").attr("src",'img/primary/2B.svg').fadeOut(3000)
     }
     displayCards()
 
@@ -128,13 +129,21 @@ $(() =>{
     // shuffle()
     // $('.cards').fadeOut(1000)
     
-    $(document).on('click',"#shuffle", function(){
-        
+    let $shuffle = $("#shuffle")
+
+    $shuffle.click(function(){
         removeCards()
         shuffle()
         setTimeout(function(){
-
-        displayCards()
-        }, 3001)
+            displayCards()},3001)
     })
+
+    // $(document).on('click',"#shuffle", function(){
+        
+    //     removeCards()
+    //     shuffle()
+    //     setTimeout(function(){
+    //     displayCards()
+    //     }, 3001)
+    // })
 })
