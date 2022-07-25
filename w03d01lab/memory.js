@@ -3,14 +3,7 @@ const suite = ["Spades", "Hearts", "Diamonds", "Clubs"]
 const cardValue = ["Ace", "2", "3", "4", "5", "6","7","8","9","10","Jack","Queen","King"]
 const deck = []
 
-const player = {
-    hand: [{}],
-    chips: [{}],
-    fold: false, 
-    currentBet: 0
-}
-
-const dealerHand = [{}]
+let playerInput=""
 
 const createDeck = () => {
     for(let i = 0; i < suite.length;i++){
@@ -31,7 +24,7 @@ const createDeck = () => {
                 suite: suite[i],
                 value: j + 1,
                 raw: cardValue[j].charAt(0) + suite[i].charAt(0), 
-                imgSrc: "primary/" + firstPrefix+ secondPrefix + ".svg"
+                imgSrc: firstPrefix+ secondPrefix + ".svg"
             })
         }
     }
@@ -96,24 +89,9 @@ const shuffle = () => {
         }
     
         const initialDeal = () => {
-            
-            player.hand.push(deck.pop())
-            const $playerCardOne = $('<img>').attr("src",`${player.hand[1].imgSrc}`).addClass("playerHandCards")
-            $('#playerHandContainer').append($playerCardOne)
-
-            dealerHand.push(deck.pop())
-            const $dealerCardOne = $('<img>').attr("src","primary/2B.svg").addClass("dealerHandCards")
-            $('#dealerHandContainer').append($dealerCardOne)
-
-            player.hand.push(deck.pop())
-            const $playerCardTwo = $('<img>').attr("src",`${player.hand[2].imgSrc}`).addClass("playerHandCards")
-            $('#playerHandContainer').append($playerCardTwo)
-
-            dealerHand.push(deck.pop())
-            const $dealerCardTwo = $('<img>').attr("src",`${dealerHand[2].imgSrc}`).addClass("dealerHandCards")
-            $('#dealerHandContainer').append($dealerCardTwo)
-
-
+            //we need playerhand object, dealerhand object
+            //div containers for playerhand, dealerhand 
+    
             //Player Receives One Card 
                 //Face Up
                 //append Card with deck.pop() to player div container 
@@ -130,17 +108,12 @@ const shuffle = () => {
              shuffle()
              //betting
              initialDeal()
-            //  makeSelection()
-            //  //Split & Double Down 
-            //  secondaryDeal()
-            //  winLose()
+             makeSelection()
+             //Split & Double Down 
+             secondaryDeal()
+             winLose()
         }
     
-        const $welcomeToBlackJack = $("<h1>").text("Welcome to Blackjack!")
-        const $dealerHandContainer = $('<div>').attr("id","dealerHandContainer").text("Dealer Hand")
-        const $playerHandContainer = $('<div>').attr("id","playerHandContainer").text("Player Hand")
-
-        $('body').append($welcomeToBlackJack, $dealerHandContainer, $playerHandContainer)
 
         playBlackJack()
 
