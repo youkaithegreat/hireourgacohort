@@ -110,7 +110,6 @@ const deal = () => {
             $(this).removeClass("highlight")
         }
 
-        $(this).addClass("highlight")
         playerHand[2].hold = !playerHand[2].hold
         console.log('setting to true')
     })
@@ -123,7 +122,6 @@ const deal = () => {
             $(this).removeClass("highlight")
         }
 
-        $(this).addClass("highlight")
         playerHand[3].hold = !playerHand[3].hold
         console.log('setting to true')
     })
@@ -135,8 +133,7 @@ const deal = () => {
         }else{
             $(this).removeClass("highlight")
         }
-        
-        $(this).addClass("highlight")
+    
         playerHand[4].hold = !playerHand[4].hold
         console.log('setting to true')
     })
@@ -149,7 +146,6 @@ const deal = () => {
             $(this).removeClass("highlight")
         }
 
-        $(this).addClass("highlight")
         playerHand[5].hold = !playerHand[5].hold
         console.log('setting to true')
     })
