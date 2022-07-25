@@ -58,16 +58,43 @@ const shuffle = () => {
             //fold hand 
             //dealer done 
         }
+
+        const resetGame = () => {
+                $(".playerHandCards").attr("src","primary/2B.svg")
+                $(".dealerHandCards").attr("src","primary/2B.svg")
+  
+            player.hand =[{}]
+            dealerHand = [{}]
+            $(".playerHandCards").remove()  
+            $(".dealerHandCards").remove()
+            playBlackJack()
+
+        }
     
         const checkPlayerBust = () => {
-            //if player over 21, lose instantly 
-                
+            let playerSum = 0;
+            for(let i = 1; i < player.hand.length; i++){
+                playerSum += player.hand[i].value
+            }
+            if(playerSum > 21){
+                console.log("It's over")
+                resetGame()
+            }
         }
     
         const dealerHandCheck = () => {
-            //check if dealer is below 17 hit 
-                //if stand is true, dealer continues 
-            //if dealer is over 21, bust
+            let dealerSum = 0;
+            for(let i = 1; i < dealerHand.length; i++){
+                dealerSum+=dealerHand[i].value
+            }
+            if(dealerSum >=17){
+                //nothing happens
+                console.log("Dealer has reached 17")
+            }else{
+                console.log("dealer receives another card")
+                dealerHand.push(deck.pop())
+                $('#dealerHandContainer').append(`<img src ='${dealerHand[dealerHand.length-1].imgSrc}' class='dealerHandCards'>`)
+            }
         }
     
         const stand =()=> {
@@ -77,20 +104,44 @@ const shuffle = () => {
         }
     
         const hit = () => {
-            //giveCard
-                checkPlayerBust()
+            player.hand.push(deck.pop())
+            const $newCard = $("<img>").attr({"src":`${player.hand[player.hand.length-1].imgSrc}`,"class":"playerHandCards"})
+            $("#playerHandContainer").append($newCard)
+            checkPlayerBust()
             dealerHandCheck()
+            makeSelection()
         }
         
         const makeSelection = () => {
     
-            //hit
-                hit()
-                    //include betting
-            //stand
-                stand()
-            //fold
-                fold()
+                const $hit = $("<button>").attr("id","hitButton").addClass("playerChoices").text("HIT")
+                const $stand = $("<button>").attr("id","standButton").addClass("playerChoices").text("STAND")
+                const $fold = $("<button>").attr("id","foldButton").addClass("playerChoices").text("FOLD")
+
+                const $playerChoiceButtonsContainer = $('<div>').attr("id","playerChoiceButtonsContainer")
+
+                $playerChoiceButtonsContainer.append($hit, $stand, $fold)
+
+                $('body').append($playerChoiceButtonsContainer)
+
+                $hit.on('click', function(){
+                    $(this).off('click')
+                    $("#playerChoiceButtonsContainer").remove()
+                    hit()
+                })
+
+                $stand.on('click', function(){
+                    $(this).off('click')
+                    $("#playerChoiceButtonsContainer").remove()
+                    stand()
+                })
+
+                $fold.on('click', function(){
+                    $(this).off('click')
+                    $("#playerChoiceButtonsContainer").remove()
+                    fold()
+                })
+
                 //split
                 //doubledown
         }
@@ -113,24 +164,13 @@ const shuffle = () => {
             const $dealerCardTwo = $('<img>').attr("src",`${dealerHand[2].imgSrc}`).addClass("dealerHandCards")
             $('#dealerHandContainer').append($dealerCardTwo)
 
-
-            //Player Receives One Card 
-                //Face Up
-                //append Card with deck.pop() to player div container 
-            //Dealer Receives One Card
-                //Face Down
-                //append Card FACE DOWN WITHOUT img/src using 2B.svg (append independently)
-            //Player Receives One More Card
-                //append Card with deck.pop()
-            //Dealer Receives One Card 
-                //append Card with deck.pop()
         }
     
         const playBlackJack = () => {
-             shuffle()
+            shuffle()
              //betting
-             initialDeal()
-            //  makeSelection()
+            initialDeal()
+            makeSelection()
             //  //Split & Double Down 
             //  secondaryDeal()
             //  winLose()
@@ -139,7 +179,6 @@ const shuffle = () => {
         const $welcomeToBlackJack = $("<h1>").text("Welcome to Blackjack!")
         const $dealerHandContainer = $('<div>').attr("id","dealerHandContainer").text("Dealer Hand")
         const $playerHandContainer = $('<div>').attr("id","playerHandContainer").text("Player Hand")
-
         $('body').append($welcomeToBlackJack, $dealerHandContainer, $playerHandContainer)
 
         playBlackJack()
