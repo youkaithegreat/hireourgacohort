@@ -7,19 +7,26 @@ const player = {
     hand: [{}],
     chips: [{}],
     fold: false, 
-    currentBet: 0
+    currentBet: 0, 
+    alive: false
 }
 
 const dealer =  {
     hand: [{}],
-    hold: false
+    hold: false, 
+    alive: false
 }
+
+let gameStatus = true;
+
+let standHand= false
 
 const createDeck = () => {
     for(let i = 0; i < suite.length;i++){
         for(let j = 0; j<cardValue.length; j++){
 
             let firstPrefix, secondPrefix
+            let valueCard = 0
 
             if(cardValue[j].charAt(0) ==1){
                 firstPrefix="T"
@@ -27,12 +34,20 @@ const createDeck = () => {
                 firstPrefix=cardValue[j].charAt(0)
             }
 
+            if(cardValue[j]=='Ace'){
+                valueCard=1
+            }else if(cardValue[j]=="King" || cardValue[j]=="Queen" || cardValue[j]=="Jack"){
+                valueCard = 10
+            } else{
+                valueCard = j+1
+            }
+
             secondPrefix = suite[i].charAt(0)
 
             deck.push({
                 name: "" + cardValue[j] + " of " + suite[i],
                 suite: suite[i],
-                value: j + 1,
+                value: valueCard,
                 raw: cardValue[j].charAt(0) + suite[i].charAt(0), 
                 imgSrc: "primary/" + firstPrefix+ secondPrefix + ".svg"
             })
@@ -57,27 +72,18 @@ const shuffle = () => {
 
     $(() => {
 
-        const fold = () => {
-            //fold hand 
-            //dealer done 
-        }
+        const $hit = $("<button>").attr("id","hitButton").addClass("playerChoices").text("HIT")
+        const $stand = $("<button>").attr("id","standButton").addClass("playerChoices").text("STAND")
+        // const $fold = $("<button>").attr("id","foldButton").addClass("playerChoices").text("FOLD")
 
-        const resetGame = () => {
+        const $playerChoiceButtonsContainer = $('<div>').attr("id","playerChoiceButtonsContainer")
 
+        // const fold = () => {
+        // }
 
-            $("h1").text("Lost")
-                $(".playerHandCards").attr("src","primary/2B.svg")
-                $(".dealerHandCards").attr("src","primary/2B.svg")
-  
-            for(let i = 0; i< player.hand.length; i++){
-                player.hand.pop()
-                dealer.hand.pop()
-            }
-            $(".playerHandCards").remove()  
-            $(".dealerHandCards").remove()
-            playBlackJack()
-
-        }
+        // const resetGame = () => {
+        //     $('body').html('')
+        // }
     
         const checkPlayerBust = () => {
             let playerSum = 0;
@@ -85,53 +91,79 @@ const shuffle = () => {
                 playerSum += player.hand[i].value
             }
             if(playerSum > 21){
-                console.log("It's over")
-                resetGame()
+                console.log(player.hand)
+                console.log(playerSum)
+                alert("You bust!")
+                $('body').html("Game Over You Bust!")
+                gameStatus=false
             }
+
         }
     
+        const compareHands = (dealer) => {
+            let playerSum = 0
+            for(let i = 0; i< player.hand.length;i++){
+                playerSum+=player.hand[i].value
+            }
+            if(playerSum > dealer){
+                alert("Player Wins")
+                gameStatus=false
+            }else if(playerSum == dealer){
+                alert("It's a tie")
+                gameStatus=false
+            }else if(playerSum < dealer){
+                alert("Dealer wins")
+                gameStatus=false
+            }
+            $('body').html("Game Over Thanks for Playing")
+        }
+
         const dealerHandCheck = () => {
             let dealerSum = 0;
             for(let i = 0; i < dealer.hand.length; i++){
                 dealerSum+=dealer.hand[i].value
             }
-            if(dealerSum >=17){
-                //nothing happens
-                console.log("Dealer has reached 17")
-                $("h1").text("Dealer has at least 17")
-            }else{
+            if(dealerSum >21){
+                alert("You won! Dealer bust")
+                $('body').html("Dealer Bust You Win")
+                gameStatus=false
+            }else if(dealerSum >=17 && dealerSum <=21 && standHand == false){
+                        makeSelection()                
+            }else if(dealerSum <= 21 && dealerSum >=17 && standHand == true){
+                compareHands(dealerSum)
+            }else if(standHand == true){
+                dealer.hand.push(deck.pop())
+                $('#dealerHandContainer').append(`<img src ='${dealer.hand[dealer.hand.length-1].imgSrc}' class='dealerHandCards'>`)
+                dealerHandCheck()
+            }else {
                 console.log("dealer receives another card")
                 dealer.hand.push(deck.pop())
                 $('#dealerHandContainer').append(`<img src ='${dealer.hand[dealer.hand.length-1].imgSrc}' class='dealerHandCards'>`)
+                makeSelection()               
             }
-            dealerSum = 0
-        }
 
+        }
+    
         const stand =()=> {
-            //set stand to true
-            //dealer proceeds to 17
+            standHand = true
             dealerHandCheck()
         }
     
         const hit = () => {
             player.hand.push(deck.pop())
-            const $newCard = $("<img>").attr("src",`${player.hand[player.hand.length-1].imgSrc}`).addClass("playerHandCards")
+            const $newCard = $("<img>").attr("src",`${player.hand[player.hand.length-1].imgSrc}`)
             $("#playerHandContainer").append($newCard)
-            //alert("Should get a card before dealer does")
             checkPlayerBust()
-            dealerHandCheck()
-            makeSelection()
+            if(gameStatus!=false){
+                dealerHandCheck()
+            }
+
         }
         
         const makeSelection = () => {
     
-                const $hit = $("<button>").attr("id","hitButton").addClass("playerChoices").text("HIT")
-                const $stand = $("<button>").attr("id","standButton").addClass("playerChoices").text("STAND")
-                const $fold = $("<button>").attr("id","foldButton").addClass("playerChoices").text("FOLD")
-
-                const $playerChoiceButtonsContainer = $('<div>').attr("id","playerChoiceButtonsContainer")
-
-                $playerChoiceButtonsContainer.append($hit, $stand, $fold)
+            if(gameStatus == true){
+                $playerChoiceButtonsContainer.append($hit, $stand)
 
                 $('body').append($playerChoiceButtonsContainer)
 
@@ -147,11 +179,16 @@ const shuffle = () => {
                     stand()
                 })
 
-                $fold.on('click', function(){
-                    $(this).off('click')
-                    $("#playerChoiceButtonsContainer").remove()
-                    fold()
-                })
+                // $fold.on('click', function(){
+                //     $(this).off('click')
+                //     $("#playerChoiceButtonsContainer").remove()
+                //     fold()
+                // })
+            }else{
+                gameStatus = true
+                playBlackJack()
+            }
+               
 
                 //split
                 //doubledown
@@ -190,7 +227,7 @@ const shuffle = () => {
             //  winLose()
         }
     
-        const $welcomeToBlackJack = $("<h1>").text("Welcome to Blackjack!")
+        const $welcomeToBlackJack = $("<h1>").text("Welcome to One Round Blackjack! Aces are only One! House Rules!")
         const $dealerHandContainer = $('<div>').attr("id","dealerHandContainer").text("Dealer Hand")
         const $playerHandContainer = $('<div>').attr("id","playerHandContainer").text("Player Hand")
         $('body').append($welcomeToBlackJack, $dealerHandContainer, $playerHandContainer)
