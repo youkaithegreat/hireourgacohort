@@ -41,3 +41,96 @@ const shuffle = () => {
         deck[roll] = temp
     }
 }
+
+//createDeck
+//shuffleDeck
+
+//-> BlackJack
+    //Standard Bet - Chips (Some type)
+    //Get Dealt 
+        //Player Face Down -> Face Up
+        //Dealer Face Down
+        //Player Face Down -> Face Up
+        //Dealer Face Up
+    //Make Selection
+            //Split if both cards are the same (Low Priority) 
+                //Two Extra Cards
+                    //Pay Again 
+                //check if enough money/chips
+            //Double Down -> Bet Again - No New Cards -> Can Not Get New Cards anymore at all (Medium Priority)
+        //Hit/Standard Bet (High Priority)
+        //Hold - Dealer Keeeps Going
+        //Fold
+    //Deal Again - One Card Each 
+        //PlayerChoice First
+        //DealerCheck - Stand at 17 
+    //Repeat Make Selection 
+        //Until Game Ends 
+    //New Game 
+
+    const fold = () => {
+        //fold hand 
+    }
+
+    const dealerHandCheck = () => {
+        //check if dealer is at 17 
+    }
+
+    const stand =()=> {
+        //dealer proceeds to 17
+        //dealerHandCheck()
+    }
+
+    const hit = () => {
+        //giveCard
+        //dealerHandCheck()
+    }
+    
+    const makeSelection = () => {
+
+        //hit
+            hit()
+                //include betting
+        //stand
+            stand()
+        //fold
+            fold()
+            //split
+            //doubledown
+    }
+
+    const initialDeal = () => {
+        //we need playerhand object, dealerhand object
+        //div containers for playerhand, dealerhand 
+
+        //Player Receives One Card 
+            //Face Up
+            //append Card with deck.pop() to player div container 
+        //Dealer Receives One Card
+            //Face Down
+            //append Card FACE DOWN WITHOUT img/src using 2B.svg (append independently)
+        //Player Receives One More Card
+            //append Card with deck.pop()
+        //Dealer Receives One Card 
+            //append Card with deck.pop()
+    }
+
+    const playBlackJack = () => {
+         shuffle()
+         //betting
+         initialDeal()
+         makeSelection()
+         //Split & Double Down 
+         secondaryDeal()
+         winLose()
+    }
+
+    createDeck()
+
+
+    $(() => {
+
+        playBlackJack()
+
+
+    })
