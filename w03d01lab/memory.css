@@ -1,0 +1,12 @@
+#dealerHandContainer {
+    display: block;
+    width: 100%;
+    border: 3px black solid;
+}
+
+#playerHandContainer {
+    display: block;
+    width:  100%;
+    border: 3px red solid;
+
+}
