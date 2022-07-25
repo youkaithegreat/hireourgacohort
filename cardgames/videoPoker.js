@@ -225,7 +225,7 @@ const bet = () => {
        
     }else{
 
-        $h1 = $("<h1>").text("How much would you like to bet?")
+        $h1 = $("<h1>").text("How much would you like to bet? (Click cards to hold)")
         $('body').append($h1)
         $('h1').append("<br />")
         const $betContainer = $("<div>").attr('id','betContainer')
