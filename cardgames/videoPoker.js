@@ -57,7 +57,12 @@ const checkDoubles = () => {
 const determineWinRate = () => {
     
     checkDoubles()
-    $('body').append("<h1 id='tempMessage'>Evaluating the hand with a *GOOD* Algorithm is probably the hard part, lol, so I don't have that implemented yet.</h1>")
+    setTimeout(function(){
+        $("#tempMessage").remove()
+        bet()
+    
+    },3000)
+
 
 }
 
@@ -164,70 +169,123 @@ const secondDeal = () => {
         $(`#firstRound${i+1}`).attr("src",`${playerHand[i+1].imgSrc}`).addClass("secondFinish")
         }
     }
-    console.log(playerHand)
 
-    determineWinRate()    
+    $('body').append("<h1 id='tempMessage'>Evaluating the hand with a *GOOD* Algorithm is probably the hard part, lol, so I don't have that implemented yet.</h1>")
+    console.log(playerHand)
+    setTimeout(function(){
+        determineWinRate()},3000)
+ 
 }
 
 const bet = () => {
 
-    $h1 = $("<h1>").text("How much would you like to bet?")
-    $('body').append($h1)
-    $('h1').append("<br />")
-    const $betContainer = $("<div>").attr('id','betContainer')
-   
+    if($("#bet1").hasClass('disabled')){
+        console.log("Is this running")
+        for(let i=0; i< 5;i++){
+            $(`#bet${i+1}`).removeClass("disabled")
+            $(`.cards`).remove()
+        }
+
+        $('#bet1').on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount =1
+
+            deal()
+        })
+        
+        $('#bet2').on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=2
+            deal()
+        })
     
+        $("#bet3").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=3
+            deal()
+        })
     
-    for(let i = 1; i<=5; i++){
-        $buttonBet = $("<button>")
-        $buttonBet.text(`${i}`).addClass('betButton').attr("id", `bet${i}`)
-        $($betContainer).append($buttonBet)
+        $("#bet4").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=4
+            deal()
+        })
+    
+        $("#bet5").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=5
+            deal()
+        })
+       
+    }else{
+
+        $h1 = $("<h1>").text("How much would you like to bet?")
+        $('body').append($h1)
+        $('h1').append("<br />")
+        const $betContainer = $("<div>").attr('id','betContainer')
+       
+        
+        
+        for(let i = 1; i<=5; i++){
+            $buttonBet = $("<button>")
+            $buttonBet.text(`${i}`).addClass('betButton').attr("id", `bet${i}`)
+            $($betContainer).append($buttonBet)
+        }
+    
+        $('body').append($betContainer)
+    
+        //can this be done in the loop?
+        $('#bet1').on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount =1
+            deal()
+        })
+        
+        $('#bet2').on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=2
+            deal()
+        })
+    
+        $("#bet3").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=3
+            deal()
+        })
+    
+        $("#bet4").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=4
+            deal()
+        })
+    
+        $("#bet5").on('click',function(){
+            for(let i = 0; i< 5;i++){
+                $(`#bet${i+1}`).off().addClass("disabled")
+            }
+            player.bet = betAmount=5
+            deal()
+        })
+       
     }
-
-    $('body').append($betContainer)
-
-    //can this be done in the loop?
-    $('#bet1').on('click',function(){
-        for(let i = 0; i< 5;i++){
-            $(`#bet${i+1}`).off().addClass("disabled")
-        }
-        player.bet = betAmount =1
-        deal()
-    })
-    
-    $('#bet2').on('click',function(){
-        for(let i = 0; i< 5;i++){
-            $(`#bet${i+1}`).off().addClass("disabled")
-        }
-        player.bet = betAmount=2
-        deal()
-    })
-
-    $("#bet3").on('click',function(){
-        for(let i = 0; i< 5;i++){
-            $(`#bet${i+1}`).off().addClass("disabled")
-        }
-        player.bet = betAmount=3
-        deal()
-    })
-
-    $("#bet4").on('click',function(){
-        for(let i = 0; i< 5;i++){
-            $(`#bet${i+1}`).off().addClass("disabled")
-        }
-        player.bet = betAmount=4
-        deal()
-    })
-
-    $("#bet5").on('click',function(){
-        for(let i = 0; i< 5;i++){
-            $(`#bet${i+1}`).off().addClass("disabled")
-        }
-        player.bet = betAmount=5
-        deal()
-    })
-
-
 
 }
 
