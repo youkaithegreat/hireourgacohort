@@ -51,6 +51,7 @@ const shuffle = () => {
         deck[roll] = temp
     }
 }
+
 const checkDoubles = () => {
 
 }
