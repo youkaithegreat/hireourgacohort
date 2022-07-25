@@ -107,10 +107,6 @@ const shuffle = () => {
             dealerSum = 0
         }
 
-      //  const gameCheck = () => {
-            
-       // }
-    
         const stand =()=> {
             //set stand to true
             //dealer proceeds to 17
