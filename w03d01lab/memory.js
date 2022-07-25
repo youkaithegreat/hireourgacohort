@@ -115,7 +115,7 @@ const shuffle = () => {
     
         const hit = () => {
             player.hand.push(deck.pop())
-            const $newCard = $("<img>").attr("src",`${player.hand[player.hand.length-1].imgSrc}`)
+            const $newCard = $("<img>").attr("src",`${player.hand[player.hand.length-1].imgSrc}`).addClass("playerHandCards")
             $("#playerHandContainer").append($newCard)
             //alert("Should get a card before dealer does")
             checkPlayerBust()
