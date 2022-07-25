@@ -98,6 +98,7 @@ const shuffle = () => {
             if(dealerSum >=17){
                 //nothing happens
                 console.log("Dealer has reached 17")
+                $("h1").text("Dealer has at least 17")
             }else{
                 console.log("dealer receives another card")
                 dealer.hand.push(deck.pop())
@@ -105,7 +106,7 @@ const shuffle = () => {
             }
             dealerSum = 0
         }
-    
+
         const stand =()=> {
             //set stand to true
             //dealer proceeds to 17
@@ -116,7 +117,7 @@ const shuffle = () => {
             player.hand.push(deck.pop())
             const $newCard = $("<img>").attr("src",`${player.hand[player.hand.length-1].imgSrc}`).addClass("playerHandCards")
             $("#playerHandContainer").append($newCard)
-            alert("Should get a card before dealer does")
+            //alert("Should get a card before dealer does")
             checkPlayerBust()
             dealerHandCheck()
             makeSelection()
