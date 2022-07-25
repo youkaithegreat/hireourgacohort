@@ -33,7 +33,8 @@ const createDeck = () => {
                 suite: suite[i],
                 value: j + 1,
                 raw: cardValue[j].charAt(0) + suite[i].charAt(0), 
-                imgSrc: firstPrefix+ secondPrefix + ".svg"
+                imgSrc: 'img/primary/' + firstPrefix+ secondPrefix + ".svg",
+                hold: false
             })
         }
     }
@@ -50,100 +51,192 @@ const shuffle = () => {
         deck[roll] = temp
     }
 }
+const checkDoubles = () => {
 
+}
+const determineWinRate = () => {
+    
+    checkDoubles()
+    $('body').append("<h1 id='tempMessage'>Evaluating the hand with a *GOOD* Algorithm is probably the hard part, lol, so I don't have that implemented yet.</h1>")
 
-const select = () => {
-    playerInput = prompt("Which cards would you like to keep?")
-
-    for(let i = 1; i <=5; i++){
-        if(playerInput.indexOf(i)>-1){
-            playerHand[i].holdCard = true 
-        }else{
-            playerHand[i].holdCard = false
-        }
-    }
-    console.log(playerHand)
-    secondDeal()
 }
 
 const deal = () => {
+
+    const $cardContainer = $('<div>').attr('id','cardContainer')
+
     for(let i = 0; i<5;i++){
         playerHand.push(deck.pop())
-        console.log(`${i+1} # ${playerHand[i].name}`)
+        
+        const $videoPokerCard = `<img src='${playerHand[i+1].imgSrc}' class='cards' id='firstRound${i+1}'>`
+        $($cardContainer).append($videoPokerCard)
+   
     }
-    select()
+
+    $('body').append($cardContainer)
+
+    $dealSecondButton = $("<button>").attr('id',"dealSecondButton").text("Deal Again")
+
+    $('body').append($dealSecondButton)
+
+    $dealSecondButton.on('click', function(){
+        $(this).off()
+        secondDeal()
+    })
+
+
+    $(`#firstRound1`).on('click', function(){
+        
+        if($(this).hasClass("highlight")==false){
+            $(this).addClass("highlight")
+        }else{
+            $(this).removeClass("highlight")
+        }
+        
+        playerHand[1].hold = !playerHand[1].hold
+        console.log('setting to true')
+    })
+
+    $(`#firstRound2`).on('click', function(){
+        
+        if($(this).hasClass("highlight")==false){
+            $(this).addClass("highlight")
+        }else{
+            $(this).removeClass("highlight")
+        }
+
+        $(this).addClass("highlight")
+        playerHand[2].hold = !playerHand[2].hold
+        console.log('setting to true')
+    })
+
+    $(`#firstRound3`).on('click', function(){
+
+        if($(this).hasClass("highlight")==false){
+            $(this).addClass("highlight")
+        }else{
+            $(this).removeClass("highlight")
+        }
+
+        $(this).addClass("highlight")
+        playerHand[3].hold = !playerHand[3].hold
+        console.log('setting to true')
+    })
+
+    $(`#firstRound4`).on('click', function(){
+
+        if($(this).hasClass("highlight")==false){
+            $(this).addClass("highlight")
+        }else{
+            $(this).removeClass("highlight")
+        }
+        
+        $(this).addClass("highlight")
+        playerHand[4].hold = !playerHand[4].hold
+        console.log('setting to true')
+    })
+
+    $(`#firstRound5`).on('click', function(){
+
+        if($(this).hasClass("highlight")==false){
+            $(this).addClass("highlight")
+        }else{
+            $(this).removeClass("highlight")
+        }
+
+        $(this).addClass("highlight")
+        playerHand[5].hold = !playerHand[5].hold
+        console.log('setting to true')
+    })
+
+    
+    // select()
 }
 
 const secondDeal = () => {
+
+    $('#dealSecondButton').remove()
+
     for(let i = 0; i< 5; i++){
-        if(playerHand[i].holdCard==false){
-            playerHand[i]=deck.pop()
+
+        if(playerHand[i+1].hold==false){
+            playerHand[i+1]=deck.pop()        
+        $(`#firstRound${i+1}`).attr("src",`${playerHand[i+1].imgSrc}`).addClass("secondFinish")
         }
     }
     console.log(playerHand)
-}
-const bet = () => {
-    console.log("How much would you like to bet?")
-    console.log("You can bet 1, 2, 3, 4 or 5 credits")
-    playerInput = prompt("    choice     :")
 
-    if(playerInput > 0 & playerInput <=5){
-        player.bet = playerInput
-        deal()
-    } else {
-        console.log("Thanks for playing, you started with 100 points and you now have " + player.money)
+    determineWinRate()    
+}
+
+const bet = () => {
+
+    $h1 = $("<h1>").text("How much would you like to bet?")
+    $('body').append($h1)
+    $('h1').append("<br />")
+    const $betContainer = $("<div>").attr('id','betContainer')
+   
+    
+    
+    for(let i = 1; i<=5; i++){
+        $buttonBet = $("<button>")
+        $buttonBet.text(`${i}`).addClass('betButton').attr("id", `bet${i}`)
+        $($betContainer).append($buttonBet)
     }
+
+    $('body').append($betContainer)
+
+    //can this be done in the loop?
+    $('#bet1').on('click',function(){
+        for(let i = 0; i< 5;i++){
+            $(`#bet${i+1}`).off().addClass("disabled")
+        }
+        player.bet = betAmount =1
+        deal()
+    })
+    
+    $('#bet2').on('click',function(){
+        for(let i = 0; i< 5;i++){
+            $(`#bet${i+1}`).off().addClass("disabled")
+        }
+        player.bet = betAmount=2
+        deal()
+    })
+
+    $("#bet3").on('click',function(){
+        for(let i = 0; i< 5;i++){
+            $(`#bet${i+1}`).off().addClass("disabled")
+        }
+        player.bet = betAmount=3
+        deal()
+    })
+
+    $("#bet4").on('click',function(){
+        for(let i = 0; i< 5;i++){
+            $(`#bet${i+1}`).off().addClass("disabled")
+        }
+        player.bet = betAmount=4
+        deal()
+    })
+
+    $("#bet5").on('click',function(){
+        for(let i = 0; i< 5;i++){
+            $(`#bet${i+1}`).off().addClass("disabled")
+        }
+        player.bet = betAmount=5
+        deal()
+    })
+
+
 
 }
 
 createDeck()
-// shuffle()
-// console.log(deck)
-// bet()
+shuffle()
 
 $(() =>{
 
-    const displayCards = () => {
-        for(let i = 0; i < deck.length; i++){
-            let $img = `<img src ='img/primary/${deck[i].imgSrc}' id='${deck[i].raw}' class='cards'>`
-            
-            setTimeout(function(){
+    bet()
 
-                $('body').append($img)
-
-            }, 100*i)
-            
-        }
-    }
-
-    const removeCards = () => {
-        // for(let i = 0; i<deck.length; i++){
-        //     const cardId = '#' + deck[i].raw
-        //     $(`${cardId}`).attr("src",'img/primary/2B.svg').fadeOut(3000)
-        // }
-        $(".cards").attr("src",'img/primary/2B.svg').fadeOut(3000)
-    }
-    displayCards()
-
-    $('body').prepend("<button id='shuffle'>Shuffle</button>")
-    // shuffle()
-    // $('.cards').fadeOut(1000)
-    
-    let $shuffle = $("#shuffle")
-
-    $shuffle.click(function(){
-        removeCards()
-        shuffle()
-        setTimeout(function(){
-            displayCards()},3001)
-    })
-
-    // $(document).on('click',"#shuffle", function(){
-        
-    //     removeCards()
-    //     shuffle()
-    //     setTimeout(function(){
-    //     displayCards()
-    //     }, 3001)
-    // })
+   
 })
