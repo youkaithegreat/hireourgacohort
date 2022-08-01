@@ -8,6 +8,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: stretch;
+	margin-top: 5%;
 }
 
 .profiles {
@@ -149,4 +150,24 @@ nav ul li a:hover {
 	border-radius: 60px;
 	color: white;
 	margin: 10px;
+	box-shadow: 10px 5px 5px rgb(80, 67, 67);
+}
+
+.main {
+	box-shadow: 10px 5px 5px rgb(80, 67, 67);
+	border: 3px solid #b13325;
+	padding: 5%;
+	margin: 10%;
+}
+
+.main p {
+	font-size: 20px;
+}
+
+.main li {
+	margin-top: 3%;
+	color: #b13325;
+	text-align: center;
+	list-style: none;
+	text-transform: uppercase;
 }
