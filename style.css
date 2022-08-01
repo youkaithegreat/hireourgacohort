@@ -132,7 +132,21 @@ nav ul li a:hover {
 }
 
 .hide-ul {
-	display: table-row;
+	display: none;
 	background-color: #b13325;
 	padding: 0;
+}
+
+.main-content {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.main-content div {
+	background-color: #b13325;
+	padding: 30px;
+	border-radius: 60px;
+	color: white;
+	margin: 10px;
 }
