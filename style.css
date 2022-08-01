@@ -51,9 +51,18 @@ nav.black {
 }
 
 nav.black .logo {
-	background-color: #060606;
-	border-radius: 0 20px 0px 40px;
 	color: #f4f3f2;
+	background-color: #b13325;
+	height: 80px;
+	width: 150px;
+	float: left;
+	transition: 0.5s;
+	padding: 5px 15px;
+	border-radius: 100px;
+	margin-top: 10px;
+
+	display: block;
+	text-align: center;
 }
 nav .logo {
 	background-color: white;
@@ -123,6 +132,7 @@ nav ul li a:hover {
 }
 
 .hide-ul {
-	display: none;
+	display: table-row;
 	background-color: #b13325;
+	padding: 0;
 }
