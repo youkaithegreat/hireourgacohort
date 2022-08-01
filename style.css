@@ -27,7 +27,12 @@
 	width: 200px;
 }
 .intro {
-	padding-top: 120px;
+	padding-top: 150px;
+}
+
+.bg-main {
+	width: 120%;
+	height: 250px;
 }
 nav {
 	position: fixed;
@@ -36,7 +41,7 @@ nav {
 	box-sizing: border-box;
 	transition: 0.5s;
 	z-index: 100;
-	background-color: #b13325;
+	/* background-color: #b13325; */
 }
 
 nav.black {
@@ -108,9 +113,9 @@ nav ul li a:focus {
 }
 
 nav ul li a:hover {
-	color: #b13325;
-	background: #fff;
-	border-radius: 0 40px 0 20px;
+	color: #fff;
+	background: #b13325;
+	border-radius: 20px 60px;
 }
 
 .logo {
@@ -119,4 +124,5 @@ nav ul li a:hover {
 
 .hide-ul {
 	display: none;
+	background-color: #b13325;
 }
