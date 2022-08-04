@@ -75,8 +75,8 @@ const shuffle = () => {
             }
             $(".playerHandCards").remove()  
             $(".dealerHandCards").remove()
+            $('body').remove()
             playBlackJack()
-
         }
     
         const checkPlayerBust = () => {
@@ -87,6 +87,7 @@ const shuffle = () => {
             if(playerSum > 21){
                 console.log("It's over")
                 resetGame()
+                console.log("???")
             }
         }
     
@@ -110,8 +111,11 @@ const shuffle = () => {
         const stand =()=> {
             //set stand to true
             //dealer proceeds to 17
-            dealerHandCheck()
+            if (playerSum == dealer)
+            {
+            
         }
+    }
     
         const hit = () => {
             player.hand.push(deck.pop())
